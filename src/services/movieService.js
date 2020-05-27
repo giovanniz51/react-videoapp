@@ -2,7 +2,7 @@ import httpService from "./httpService";
 import {getGenres} from "./genreService";
 
 export function getMovies() {
-	return httpService.get()
+	return httpService.get("/movies")
 }
 
 export function getMovie(id) {
