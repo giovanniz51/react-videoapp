@@ -2,7 +2,7 @@ import httpService from "./httpService";
 import {getGenres} from "./genreService";
 
 export function getMovies() {
-	return httpService.get("http://localhost:3900/api/movies")
+	return httpService.get()
 }
 
 export function getMovie(id) {
@@ -18,7 +18,7 @@ export function saveMovie(movie) {
 		movieInDb.numberInStock = movie.numberInStock;
 		movieInDb.dailyRentalRate = movie.dailyRentalRate;
 
-		return httpService.post("http://localhost:3900/api/movies", movieInDb)
+		return httpService.post(movieInDb)
 	});
 }
 
@@ -28,12 +28,12 @@ export function updateMovie(movie) {
 	delete body.genre;
 	delete body._id;
 	console.log(body)
-	return httpService.put("http://localhost:3900/api/movies/" + movie._id, body)
+	return httpService.put(movie._id, body)
 }
 
 export function deleteMovie(id) {
 	getMovies().then( movies => {
 		let movieInDb = movies.data.find(m => m._id == id)
-		httpService.delete("http://localhost:3900/api/movies/" + movieInDb._id, movieInDb._id)
+		httpService.delete(movieInDb._id, movieInDb._id)
 	}).then(movie => movie);
 }
